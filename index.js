@@ -17,38 +17,38 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
 });
 
-// async function run() {
-//   try {
-//     await client.connect();
-//     const database = client.db("geniusCarMechanics");
-//     const servicesCollection = database.collection("services");
-//     // get Services
-//     app.get("/services", async (req, res) => {
-//       const getServices = servicesCollection.find({});
-//       const services = await getServices.toArray();
-//       res.send(services);
-//     });
-//     //get Single Services
-//     app.get("/services/:id", async (req, res) => {
-//       const id = req.params.id;
-//       const query = { _id: ObjectId(id) };
-//       const service = await servicesCollection.findOne(query);
-//       res.send(service);
-//     });
-//     //Post API
-//     app.post("/services", async (req, res) => {
-//       const service = req.body;
-//       const result = await servicesCollection.insertOne(service);
-//       console.log("Inserted SuccessFully");
-//       res.json(result);
-//     });
-//     console.log("connect To DAtaBase");
-//   } finally {
-//     // await client.close()
-//   }
-// }
+async function run() {
+  try {
+    await client.connect();
+    const database = client.db("geniusCarMechanics");
+    const servicesCollection = database.collection("services");
+    // get Services
+    app.get("/services", async (req, res) => {
+      const getServices = servicesCollection.find({});
+      const services = await getServices.toArray();
+      res.send(services);
+    });
+    //get Single Services
+    app.get("/services/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const service = await servicesCollection.findOne(query);
+      res.send(service);
+    });
+    //Post API
+    app.post("/services", async (req, res) => {
+      const service = req.body;
+      const result = await servicesCollection.insertOne(service);
+      console.log("Inserted SuccessFully");
+      res.json(result);
+    });
+    console.log("connect To DAtaBase");
+  } finally {
+    // await client.close()
+  }
+}
 
-// run().catch(console.dri);
+run().catch(console.dri);
 app.get("/", (req, res) => {
   res.send("Running Genius Server");
 });
